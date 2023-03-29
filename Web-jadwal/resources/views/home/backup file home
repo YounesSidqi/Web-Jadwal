@@ -1,0 +1,38 @@
+@extends('layouts.app')
+
+@section('main')
+
+<div class="border rounded mt-5 mx-auto d-flex flex-column align-items-stretch bg-white" style="width: 380px;">
+    <div class="d-flex justify-content-between flex-shrink-0 p-3 link-dark  border-bottom">
+        <span class="fs-5 fw-semibold">List Jadwal</span>
+        <a href="{{route('create')}}"><span class="btn btn-sm btn-primary">add</span></a>
+
+    </div>
+
+    @foreach ($jadwal as $jadwal)
+    <div class="list-group list-group-flush border-bottom scrollarea">
+        <div class="list-group-item list-group-item-action py-3 lh-tight-3" aria-current="true">
+            <div class="d-flex w-600 align-items-center justify-content-between">
+                <strong class="mb-1">{{ $jadwal->hari }}</strong>
+                <small>{{ $jadwal->tanggal }}</small>
+            </div>
+            <div class="col-10 mb-1 small">{{ $jadwal->kegiatan }}</div>
+            <div class="group-action">
+                <form action="{{route('delete', $jadwal->id)}}" method="POST">
+                    @csrf @method('DELETE')
+                    <a href="{{ route('edit', $jadwal->id) }}" class="badge bg-info text-white">edit</a>
+                    <button type="submit" class="badge bg-danger text-white">delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    @endforeach
+
+
+
+</div>
+
+
+
+
+@endsection
